@@ -1,1 +1,1 @@
-# yoga_buddy
+# asana_buddy
