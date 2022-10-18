@@ -1,4 +1,4 @@
-from pose import Pose, Library
+from pose import Pose, Library, Sequence
 import PySimpleGUI as sg
 
 def open_library():
@@ -30,9 +30,9 @@ def open_routine_build():
     ]
     window_build = sg.Window('Routine Builder', layout_build, size=(800, 600))
     while True:
-            event = window_build.read()
-            if event == sg.WINDOW_CLOSED or event == 'Quit':
-                break
+        event = window_build.read()
+        if event == sg.WINDOW_CLOSED or event == 'Quit':
+            break
     window_build.close()
 
 def open_begin():
@@ -55,14 +55,22 @@ def open_begin():
     window.close()
 
 def main():
-    standing = Library("standing")
-    seated = Library("seated")
-    supine = Library("supine")
-    prone = Library("prone")
-    arm_leg = Library("arm & leg")
-    balance_inversion = Library("arm balance & inversion")
-    mountain = Pose("mountain", "tadasana", "standing", "neutral")
+    lib = Library('standing', 'seated', 'supine', 'prone', 'arm & leg')
 
-    open_begin()
+    mountain = Pose('mountain', 'tadasana', 'standing', 'neutral', lib)
+    chair = Pose('chair', 'utkatasana', 'standing','balancing', lib)
+    crescent_lunge = Pose('crescent lunge', 'ashta chandrasana', 'standing', 'balancing', lib)
+    forward_bend = Pose('forward bend', 'uttanasana', 'standing', 'forward bend', lib)
+    halfway_lift = Pose('halfway lift', 'ardha uttanasana', 'standing', 'forward bend', lib)
+    mountain_arms_up = Pose('mountain arms up', 'urdhva hastasana', 'standing', 'neutral', lib)
+    warrior1 = Pose('warrior I', 'virabhadrasana a', 'standing', 'balancing', lib)
+    warrior2 = Pose('warrior II', 'virabhadrasana b', 'standing', 'balancing', lib)
 
+    seq = Sequence(mountain, lib)
+    print(seq[0])
+    print(seq[1])
+    print(seq[2])
+    print(seq[3])
+    print(seq[4])
+    
 main()

@@ -10,7 +10,7 @@
 
 # And while practicing asana for improved health is perfectly acceptable, it is not the goal or purpose of yoga...
 
-# Most of what is billed as yoga around the world is not the yoga described in the Yoga Sutras or any of the original texts. Rather it has morphed into a form of asana without faith, devotion, or understanding underlying it, and therefore, more akin to mere exercise.
+# ...Most of what is billed as yoga around the world is not the yoga described in the Yoga Sutras or any of the original texts. Rather it has morphed into a form of asana without faith, devotion, or understanding underlying it, and therefore, more akin to mere exercise.
 
 # Today, one can register for a myriad of “yogas”: spinning+yoga, naked yoga, doga (yoga for dogs), hot yoga, yoga on a surfboard, the list is endless. New types of “yoga” seem to appear and disappear, it seems almost daily, and they are a far cry from the yoga described in the Yoga Sutras, Bhagavad Gita, or Upanishads. In today’s mass commercialization, the term “yoga” is loosely applied to the latest fitness creation that bears little to no resemblance to yoga as citta-vritti-nirodhah.
 
