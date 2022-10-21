@@ -58,9 +58,8 @@ def main():
     library = __import__('library')
     routine = library.lib.build_routine(library.mountain, 3, 'fast')
 
-    for i in range(0, 1):
-        for j in range(0, 3):
-            for n in range(0, 5):
-                print(routine[i][j][n])
+    for j in range(0, 3):
+        for n in range(0, 5):
+            print(routine[1][j][n])
 
 main()
