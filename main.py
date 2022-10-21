@@ -1,4 +1,3 @@
-from pose import Pose, Library, Sequence
 import PySimpleGUI as sg
 
 def open_library():
@@ -55,38 +54,13 @@ def open_begin():
     window.close()
 
 def main():
-    lib = Library('standing', 'seated', 'supine', 'prone', 'arm & leg')
 
-    mountain = Pose('mountain', 'tadasana', 'standing', 'neutral', lib)
-    chair = Pose('chair', 'utkatasana', 'standing','balancing', lib)
-    crescent_lunge = Pose('crescent lunge', 'ashta chandrasana', 'standing', 'balancing', lib)
-    forward_bend = Pose('forward bend', 'uttanasana', 'standing', 'forward bend', lib)
-    halfway_lift = Pose('halfway lift', 'ardha uttanasana', 'standing', 'forward bend', lib)
-    mountain_arms_up = Pose('mountain arms up', 'urdhva hastasana', 'standing', 'neutral', lib)
-    warrior1 = Pose('warrior I', 'virabhadrasana a', 'standing', 'balancing', lib)
-    warrior2 = Pose('warrior II', 'virabhadrasana b', 'standing', 'balancing', lib)
-    
-    down_dog = Pose('downward dog', 'adho mukha shvanasana', 'arm & leg', 'forward bend', lib)
-    table = Pose('table', 'chakravakasana', 'arm & leg', 'neutral', lib)
-    cat = Pose('cat', 'marjariasana', 'arm & leg', 'forward bend', lib)
-    cow = Pose('cow', 'bitilasana', 'arm & leg', 'backbend', lib)
-    lunge = Pose('lunge', 'N/A', 'arm & leg', 'balancing', lib)
-    dolphin = Pose('dolphin', 'ardha pincha mayurasana', 'arm & leg', 'forward bend', lib)
-    plank = Pose('plank', 'phalakasana', 'arm & leg', 'balancing', lib)
+    library = __import__('library')
+    routine = library.lib.build_routine(library.mountain, 3, 'fast')
 
-    seq1 = Sequence(mountain, 'standing', lib)
-    print(seq1._order[0])
-    print(seq1._order[1])
-    print(seq1._order[2])
-    print(seq1._order[3])
-    print(seq1._order[4])
-    next_start = lib.get_start(seq1._next_cat1)
+    for i in range(0, 1):
+        for j in range(0, 3):
+            for n in range(0, 5):
+                print(routine[i][j][n])
 
-    seq2 = Sequence(next_start, seq1._next_cat1, lib)
-    print(seq2._order[0])
-    print(seq2._order[1])
-    print(seq2._order[2])
-    print(seq2._order[3])
-    print(seq2._order[4])
-    
 main()

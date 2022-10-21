@@ -1,6 +1,9 @@
 from PIL import Image
 import random
 
+library = __import__('library')
+
+
 class Pose:
     def __init__(self, name, sanskrit, cat1, cat2, library):
         self._name = name
@@ -8,7 +11,7 @@ class Pose:
         self._cat1 = cat1
         self._cat2 = cat2
         self.visited = 0
-        self.hold = 0
+        self._desc = None
         #self._image = Image.open(f"images/{name}.png")
         if cat2 not in library._poses[cat1]:
             library._poses[cat1][cat2] = []
@@ -40,6 +43,40 @@ class Sequence:
                 self._order.append(pose)
 
     #assign hold lenghts to each pose in the sequence
+    def assign_hold(self, length, pace):
+        #each sequence is 3 min long
+        if length % 3 == 0 and pace == 'slow':
+            h1 = random.randint(1, 36)
+            h2 = random.randint(h1, 72)
+            h3 = random.randint(h2, 108)
+            h4 = random.randint(h3, 144)
+            return [h1, 72 - h1, 108 - h2, 144 - h3, 180 - h4]
+
+        #each sequence is 4 min long
+        if length % 4 == 0 and pace == 'slow':
+            h1 = random.randint(1, 48)
+            h2 = random.randint(h1, 96)
+            h3 = random.randint(h2, 144)
+            h4 = random.randint(h3, 192)
+            return [h1, 96 - h1, 144 - h2, 192 - h3, 240 - h4]
+
+        #each sequence is 5 min long
+        if length % 5 == 0 and pace == 'slow':
+            h1 = random.randint(1, 60)
+            h2 = random.randint(h1, 120)
+            h3 = random.randint(h2, 180)
+            h4 = random.randint(h3, 240)
+            return [h1, 60 - h1, 120 - h2, 180 - h3, 240 - h4]
+        
+        #each sequence is 1 min long
+        if pace == 'fast':
+            h1 = random.randint(1, 12)
+            h2 = random.randint(h1, 24)
+            h3 = random.randint(h2, 36)
+            h4 = random.randint(h3, 48)
+            return [h1, 24 - h1, 36 - h2, 48 - h3, 60 - h4]
+        
+
 
 class Library:
     def __init__(self, cat1, cat2, cat3, cat4, cat5):
@@ -97,3 +134,30 @@ class Library:
         return random.choice(list(self._poses['arm & leg']['neutral']))
 
     #build a list of sequences
+    def build_routine(self, start, length, pace):
+        l = 0
+        routine = []
+        routine_timing = []
+
+        seq1 = Sequence(start, start._cat1, library.lib)
+        routine.append(seq1._order)
+        routine_timing.append(seq1.assign_hold(l, length))
+        next_start = library.lib.get_start(seq1._next_cat1)
+        next_seq = Sequence(next_start, seq1._next_cat1, library.lib)
+
+        while l < length:
+            routine.append(next_seq._order)
+            routine_timing.append(next_seq.assign_hold(l, length))
+            next_start = library.lib.get_start(next_seq._next_cat1)
+            next_seq = Sequence(next_start, next_seq._next_cat1, library.lib)
+            if length % 3 == 0 and pace == 'slow':
+                l += 3
+            if length % 4 == 0 and pace == 'slow':
+                l += 4
+            if length % 5 == 0 and pace == 'slow':
+                l += 5
+            if pace == 'fast':
+                l += 1
+        return [routine, routine_timing]
+
+
