@@ -57,7 +57,7 @@ plank._desc = "The body is parallel to the earth. The weight of the body is supp
 bound_angle = Pose('bound angle', 'baddha konasana', 'seated', 'neutral', lib)
 bound_angle._desc = "In sitting position, bend both knees and drop the knees to each side, opening the hips. Bring the soles of the feet together and bring the heels as close to the groin as possible, keeping the knees close to the ground. The hands may reach down and grasp and maneuver the feet so that the soles are facing upwards and the heels and little toes are connected. The shoulders should be pulled back and no rounding of the spine."
 
-bound_angle_i = Pose('boudn angle I', 'baddha konasana A', 'seated', 'forward bend', lib)
+bound_angle_i = Pose('bound angle I', 'baddha konasana A', 'seated', 'forward bend', lib)
 bound_angle_i._desc = "Bend both knees and pull your heels toward your pelvis. Drop your knees out to the sides and press the soles of your feet together. Bring your heels as close to your pelvis as possible and try to keep the outer edges of the feet firmly on the floor. If you can, use your hands to open the soles of your feet upward. Keeping the pose, begin to lengthen your spine up, hinge forward from your hips and keep your sit bones rooted."
 
 boat = Pose('boat', 'navasana', 'seated', 'balancing', lib)

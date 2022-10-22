@@ -1,4 +1,5 @@
 import random
+from PIL import Image
 
 class Pose:
     def __init__(self, name, sanskrit, cat1, cat2, library):
@@ -8,7 +9,7 @@ class Pose:
         self._cat2 = cat2
         self.visited = 0
         self._desc = None
-        #self._image = Image.open(f"images/{name}.png")
+        self._image = Image.open(f"images/{name}.png")
         if cat2 not in library._poses[cat1]:
             library._poses[cat1][cat2] = []
         library._poses[cat1][cat2].append(self)

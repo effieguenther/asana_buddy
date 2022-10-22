@@ -1,6 +1,29 @@
+from platform import java_ver
 import time
+import io
+import os
+from PIL import Image
+import PySimpleGUI as sg
 
 asanas = __import__('asanas')
+
+def play_routine(routine, routine_timing):
+    layout = [[sg.Image(asanas.mountain._image, size=(400,400), key = '-img-')],
+        [sg.Button('Quit')],
+        [sg.Button('Begin')]
+    ]
+    window = sg.Window('Routine', layout, size=(800, 600))
+    while True:
+        event, values = window.read()
+        if event == sg.WINDOW_CLOSED or event == 'Quit':
+            break
+        if event == 'Begin':
+            for i in range(0, len(routine)):
+                for j in range(0, len(routine[i]._order)):
+                    window['-img-'].update(routine[i]._order[j]._image)
+                    time.sleep(routine_timing[i][j])
+    window.close()
+
 
 def input_length(question):
     while True:
@@ -54,10 +77,6 @@ def main():
     routine = asanas.lib._build_routine(asanas.mountain, length, pace)
     routine_timing = asanas.lib._get_routine_timing(routine, length, pace)
 
-    for i in range(0, len(routine)):
-        for j in range(0, len(routine[i]._order)):
-            print(routine[i]._order[j])
-            time.sleep(routine_timing[i][j])
-    print("shavasana!")
+    play_routine(routine, routine_timing)
 
 main()
