@@ -25,25 +25,50 @@ class Sequence:
     def __init__(self, pose1, cat1, lib):
         self._order = [pose1]
         start_cat = cat1
-        self._next_cat1 = None
         pose = pose1
         #populate list if starting in a standing pose
         if start_cat == 'standing':
-            self._next_cat1 = 'arm & leg' #random.choice['standing', 'prone', 'sitting']
+            self._next_cat1 = random.choice(['standing', 'prone', 'seated'])
             for i in range(0, 4): 
                 pose = lib.standing_get_next(pose, i)
                 self._order.append(pose)
 
         #populate list if starting in an arm & leg pose
         if start_cat == 'arm & leg':
-            next_cat1 = 'standing' #random.choice['standing', 'prone', 'sitting']
+            next_cat1 = random.choice(['standing', 'prone', 'seated'])
             self._next_cat1 = next_cat1
             for i in range(0, 4): 
                 pose = lib.arm_leg_get_next(pose, i, next_cat1)
                 self._order.append(pose)
 
-    #assign hold lenghts to each pose in the sequence
+        #populate list if starting in a seated pose
+        if start_cat == 'seated':
+            next_cat1 = random.choice(['arm & leg', 'prone', 'supine'])
+            self._next_cat1 = next_cat1
+            for i in range(0, 4): 
+                pose = lib.seated_get_next(pose, i, next_cat1)
+                self._order.append(pose)
+
+        #populate list if starting in a prone pose
+        if start_cat == 'prone':
+            next_cat1 = random.choice(['seated', 'supine', 'arm & leg'])
+            self._next_cat1 = next_cat1
+            for i in range(0, 4): 
+                pose = lib.prone_get_next(pose, i, next_cat1)
+                self._order.append(pose)
+        
+        #populate list if starting in a supine pose
+        if start_cat == 'supine':
+            next_cat1 = random.choice(['seated', 'prone'])
+            self._next_cat1 = next_cat1
+            for i in range(0, 4): 
+                pose = lib.supine_get_next(pose, i, next_cat1)
+                self._order.append(pose)    
+    
+    #create a sister list of hold lengths for each sequence
+
     def assign_hold(self, length, pace):
+        
         #each sequence is 3 min long
         if length % 3 == 0 and pace == 'slow':
             h1 = random.randint(15, 36)
@@ -88,7 +113,7 @@ class Library:
             cat5: {}
         }
         
-    #figure out which pose will be next in the standing sequence
+    #decide which pose will be next in the standing sequence
     def standing_get_next(self, pose, i):
         if  i == 0 or i == 1 or i == 2:
             while True:
@@ -102,7 +127,9 @@ class Library:
                 if next_pose != pose:
                     return next_pose
 
-    #figure out which pose will be next in the arm & leg sequence
+
+    #decide which pose will be next in the arm & leg sequence
+   
     def arm_leg_get_next(self, pose, i, next_cat1):
         if  i == 0 or i == 1 or i == 2:            
             while True:
@@ -129,9 +156,89 @@ class Library:
                 if next_pose != pose:
                     return next_pose
 
+
+    #decide which pose will be next in the seated sequence
+    
+    def seated_get_next(self, pose, i, next_cat1):
+        if  i == 0 or i == 1 or i == 2:            
+            while True:
+                next_cat2 = random.choice(list(self._poses['seated']))
+                next_pose = random.choice(list(self._poses['seated'][next_cat2]))
+                if next_pose != pose:
+                    return next_pose
+        
+        if i == 3 and next_cat1 == 'prone': 
+            while True:
+                next_pose = random.choice(list(self._poses['seated']['neutral']))
+                if next_pose != pose:
+                    return next_pose
+        
+        if i == 3 and next_cat1 == 'arm & leg': 
+           while True:
+                next_pose = random.choice(list(self._poses['seated']['forward bend']))
+                if next_pose != pose:
+                    return next_pose
+
+        if i == 3 and next_cat1 == 'supine': 
+            while True:
+                next_pose = random.choice(list(self._poses['seated']['balancing']))
+                if next_pose != pose:
+                    return next_pose 
+
+
+    #decide which pose will be next in the prone sequence
+
+    def prone_get_next(self, pose, i, next_cat1):
+        if  i == 0 or i == 1 or i == 2:            
+            while True:
+                next_cat2 = random.choice(list(self._poses['prone']))
+                next_pose = random.choice(list(self._poses['prone'][next_cat2]))
+                if next_pose != pose:
+                    return next_pose
+        
+        if i == 3 and next_cat1 == 'seated': 
+            while True:
+                next_pose = random.choice(list(self._poses['prone']['backbend']))
+                if next_pose != pose:
+                    return next_pose
+        
+        if i == 3 and next_cat1 == 'arm & leg': 
+           while True:
+                next_pose = random.choice(list(self._poses['seated']['forward bend']))
+                if next_pose != pose:
+                    return next_pose
+
+        if i == 3 and next_cat1 == 'supine': 
+            while True:
+                next_pose = random.choice(list(self._poses['seated']['neutral']))
+                if next_pose != pose:
+                    return next_pose
+
+    #decide which pose will be next in the supine sequence
+
+    def supine_get_next(self, pose, i, next_cat1):
+        if  i == 0 or i == 1 or i == 2:            
+            while True:
+                next_cat2 = random.choice(list(self._poses['supine']))
+                next_pose = random.choice(list(self._poses['supine'][next_cat2]))
+                if next_pose != pose:
+                    return next_pose
+        
+        if i == 3 and next_cat1 == 'seated': 
+            while True:
+                next_pose = random.choice(list(self._poses['supine']['balancing']))
+                if next_pose != pose:
+                    return next_pose
+
+        if i == 3 and next_cat1 == 'prone': 
+            while True:
+                next_pose = random.choice(list(self._poses['supine']['neutral']))
+                if next_pose != pose:
+                    return next_pose
+   
     def get_start(self, next_cat1):
-        next_cat2 = random.choice(list(self._poses['arm & leg']))
-        return random.choice(list(self._poses['arm & leg']['neutral']))
+        next_cat2 = random.choice(list(self._poses[next_cat1]))
+        return random.choice(list(self._poses[next_cat1]['neutral']))
 
     #build a list of sequences
     def _build_routine(self, start, length, pace):
@@ -168,5 +275,5 @@ class Library:
     def _get_routine_timing(self, routine, length, pace):
         timing = []
         for i in range(0, len(routine)):
-            timing.append((routine[i]).assign_hold(length, pace))
+            timing.append(routine[i].assign_hold(length, pace))
         return timing

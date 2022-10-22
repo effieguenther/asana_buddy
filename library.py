@@ -107,25 +107,25 @@ sphinx._desc = "From a prone position with the pelvic bowl is firmly contracted 
 
 #supine poses
 
-extended_corpse = Pose('extended corpse', 'n/a', 'supine', 'neutral')
+extended_corpse = Pose('extended corpse', 'n/a', 'supine', 'neutral', lib)
 extended_corpse._desc = "Begin by lying flat on your mat, legs extended, arms by your side body. Bring your big toes to touch and extend your arms up over your head to lengthen out your body."
 
-bridge = Pose('bridge', 'dvi pada pitham', 'supine', 'backbend')
+bridge = Pose('bridge', 'dvi pada pitham', 'supine', 'backbend', lib)
 bridge._desc = "From a supine position, on your back, the hips are pressed up with the heels of the feet rooted into the earth close to the sits bones. The toes are actively lifted and the pelvis tucked. The thighs are parallel to the earth and the fingers are interlaced under the body with the ribcage lifted and the heart open. The back of the neck rests on the earth. The gaze is to the sky."
 
-fish = Pose('fish', 'matsyasana', 'supine', 'backbend')
+fish = Pose('fish', 'matsyasana', 'supine', 'backbend', lib)
 fish._desc = "Begin in a seated position with your knees bent out in front of you. Drop your forearms behind you, palms down, fingertips forward and begin to lean back. Press your shoulder blades together and slide your glutes back toward the tops of your hands. Once you feel safe, drop the crown of your head onto the ground and gaze behind you. Stay on the crown of your head and lift your chest toward the sky. Keep bent knees or walk one leg at a time out in front of you and keep them engaged."
 
-spinal_twist = Pose('spinal twist', 'supta matsyendrasana', 'supine', 'twist')
+spinal_twist = Pose('spinal twist', 'supta matsyendrasana', 'supine', 'twist', lib)
 spinal_twist._desc = "From a supine position, bend one knee and cross it outside of the opposite foot. Use your hand to put slight pressure on the bent knee to push down toward the floor. Keep both shoulders squared and rooted to the earth. Extend the opposite hand and gaze toward the hand."
 
-wind_removing = Pose('wind removing', 'pavanamuktasana', 'supine', 'forward bend')
+wind_removing = Pose('wind removing', 'pavanamuktasana', 'supine', 'forward bend', lib)
 wind_removing._desc = "From a supine position, lying on your back, the knees are bent and pulled into the chest. The arms are wrapped around the knees. The gaze is inward."
 
-rejuvenation = Pose('rejuvenation', 'supta dandasana', 'supine', 'balancing')
+rejuvenation = Pose('rejuvenation', 'supta dandasana', 'supine', 'balancing', lib)
 rejuvenation._desc = "From a supine position, with the back relaxed onto the earth, the legs extend toward the sky without any tension behind the knees. The arms rest by the side body and the palms open toward the sky in a receptive mode. Hold this position or gently sway the legs from side to side. The eyes are closed and the gaze is inward."
 
-happy_baby = Pose('happy baby', 'ananda balasana', 'supine', 'balancing')
+happy_baby = Pose('happy baby', 'ananda balasana', 'supine', 'balancing', lib)
 happy_baby._desc = "From a supine position, on your back, the knees are bent slightly wider than the hips. The ankles and shins track the knees in a 90-degree angle perpendicular to the earth. The hands grip the inside sole of the flexed feet (if you have difficultly holding the feet loop a strap over each sole) and push the knees down, coaxing the thighs in toward the torso, lengthening the spine, releasing the tail bone toward the earth and extending the base of the skull away from the back of the neck. The gaze is up toward the sky."
 
 

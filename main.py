@@ -56,11 +56,11 @@ def open_begin():
 def main():
 
     library = __import__('library')
-    routine = library.lib._build_routine(library.mountain, 3, 'slow')
-    routine_timing = library.lib._get_routine_timing(routine, 3, 'slow')
+    routine = library.lib._build_routine(library.mountain, 6, 'fast')
+    routine_timing = library.lib._get_routine_timing(routine, 6, 'fast')
 
-    for j in range(0, 3):
-        for n in range(0, 5):
-            print(routine_timing[j][n])
+    for i in range(0, len(routine)):
+        for j in range(0, 5):
+            print(routine_timing[i][j])
 
 main()
