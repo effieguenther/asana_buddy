@@ -1,67 +1,63 @@
-import PySimpleGUI as sg
+import time
 
-def open_library():
-    layout_col1 = [
-        [sg.Text("This is where the library will go")]
-    ]
+asanas = __import__('asanas')
 
-    layout_col2 = [
-        [sg.Text("This is where the images and description will appear")]
-    ]
-
-    layout_library = [
-        [sg.Text('Asana Library', key='open')],
-        [sg.Column(layout_col1), sg.VSeparator(), sg.Column(layout_col2)],
-        [sg.Button('Quit')]
-    ]
-
-    window_lib = sg.Window('Asana Library', layout_library, size=(800, 600), modal=True)
+def input_length(question):
     while True:
-            event = window_lib.read()
-            if event == sg.WINDOW_CLOSED or event == 'Quit':
-                break
-    window_lib.close()
-
-def open_routine_build():
-    layout_build = [ 
-        [sg.Text('This is where the routine builder will go')],
-        [sg.Button('Quit')]
-    ]
-    window_build = sg.Window('Routine Builder', layout_build, size=(800, 600))
-    while True:
-        event = window_build.read()
-        if event == sg.WINDOW_CLOSED or event == 'Quit':
+        try:
+            length = int(input(question))
+        except ValueError:
+            print("Please enter an integer")
+            continue
+        if length > 200:
+            print("Woah, that's a long time! Please enter a number between 3 and 120")
+            continue
+        if length < 3:
+            print("That's no time at all! Please enter a number between 3 and 120")
+            continue
+        else:
+            return length
             break
-    window_build.close()
 
-def open_begin():
-    layout_begin = [
-        [sg.Text("Welcome to Asana Buddy!", justification='center')],
-        [sg.Button('Asana Library'), sg.Button('Routine Builder')],
-        [sg.Button('Quit')]
-    ]
-
-    window = sg.Window('Asana Buddy', layout_begin, size=(400,300))        
-    
+def input_pace(question):
     while True:
-        event, values = window.read()
-        if event == sg.WIN_CLOSED or event == 'Quit':
+        pace = input(question)
+        if pace != 'fast' and pace != 'slow':
+            print("Please enter 'fast' or 'slow'")
+            continue
+        else:
+            return pace
             break
-        if event == 'Asana Library':
-            open_library()
-        if event == 'Routine Builder':
-            open_routine_build()
-    window.close()
 
 def main():
 
-    asanas = __import__('asanas')
-    routine = asanas.lib._build_routine(asanas.mountain, 6, 'fast')
-    routine_timing = asanas.lib._get_routine_timing(routine, 6, 'fast')
+    print('Welcome to Asana Buddy!')
+    print('Would you like to view the list of poses? (yes or no)')
+    while True:
+        y_n = input()
+        if y_n == 'yes' or y_n == 'Yes':
+            for i in asanas.lib._poses:
+                for j in asanas.lib._poses[i]:
+                    for k in range(0, len(asanas.lib._poses[i][j])):
+                        print(f"{asanas.lib._poses[i][j][k]} - {asanas.lib._poses[i][j][k]._sanskrit}")
+                        print(asanas.lib._poses[i][j][k]._desc)
+                        print()
+            break
+        if y_n == 'no' or y_n == 'No':
+            break
+        print("Please enter 'yes' or 'no', or 'quit'")
+        if y_n == 'quit':
+            exit()    
+    length = input_length("Let's begin your routine! How long would you like to exercise? (in minutes): ")
+    pace = input_pace("Would you like the pace to be fast or slow?: ")
+    
+    routine = asanas.lib._build_routine(asanas.mountain, length, pace)
+    routine_timing = asanas.lib._get_routine_timing(routine, length, pace)
 
     for i in range(0, len(routine)):
-        for j in range(0, 5):
+        for j in range(0, len(routine[i]._order)):
             print(routine[i]._order[j])
-            print(routine_timing[i][j])
+            time.sleep(routine_timing[i][j])
+    print("shavasana!")
 
 main()
