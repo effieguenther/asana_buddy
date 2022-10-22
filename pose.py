@@ -46,35 +46,35 @@ class Sequence:
     def assign_hold(self, length, pace):
         #each sequence is 3 min long
         if length % 3 == 0 and pace == 'slow':
-            h1 = random.randint(1, 36)
+            h1 = random.randint(15, 36)
             h2 = random.randint(h1, 72)
             h3 = random.randint(h2, 108)
             h4 = random.randint(h3, 144)
-            return [h1, 72 - h1, 108 - h2, 144 - h3, 180 - h4]
+            return [h1, h2 - h1, h3 - h2, h4 - h3, 180 - h4]
 
         #each sequence is 4 min long
         if length % 4 == 0 and pace == 'slow':
-            h1 = random.randint(1, 48)
+            h1 = random.randint(20, 48)
             h2 = random.randint(h1, 96)
             h3 = random.randint(h2, 144)
             h4 = random.randint(h3, 192)
-            return [h1, 96 - h1, 144 - h2, 192 - h3, 240 - h4]
+            return [h1, h2 - h1, h3 - h2, h4 - h3, 240 - h4]
 
         #each sequence is 5 min long
         if length % 5 == 0 and pace == 'slow':
-            h1 = random.randint(1, 60)
+            h1 = random.randint(20, 60)
             h2 = random.randint(h1, 120)
             h3 = random.randint(h2, 180)
             h4 = random.randint(h3, 240)
-            return [h1, 60 - h1, 120 - h2, 180 - h3, 240 - h4]
+            return [h1, h2 - h1, h3 - h2, h4 - h3, 240 - h4]
         
         #each sequence is 1 min long
         if pace == 'fast':
-            h1 = random.randint(1, 12)
+            h1 = random.randint(5, 12)
             h2 = random.randint(h1, 24)
             h3 = random.randint(h2, 36)
             h4 = random.randint(h3, 48)
-            return [h1, 24 - h1, 36 - h2, 48 - h3, 60 - h4]
+            return [h1, h2 - h1, h3 - h2, h4 - h3, 60 - h4]
         
 
 
@@ -134,20 +134,25 @@ class Library:
         return random.choice(list(self._poses['arm & leg']['neutral']))
 
     #build a list of sequences
-    def build_routine(self, start, length, pace):
+    def _build_routine(self, start, length, pace):
         l = 0
         routine = []
-        routine_timing = []
 
         seq1 = Sequence(start, start._cat1, library.lib)
-        routine.append(seq1._order)
-        routine_timing.append(seq1.assign_hold(l, length))
+        routine.append(seq1)
         next_start = library.lib.get_start(seq1._next_cat1)
         next_seq = Sequence(next_start, seq1._next_cat1, library.lib)
+        if length % 3 == 0 and pace == 'slow':
+            l += 3
+        if length % 4 == 0 and pace == 'slow':
+            l += 4
+        if length % 5 == 0 and pace == 'slow':
+            l += 5
+        if pace == 'fast':
+            l += 1
 
         while l < length:
-            routine.append(next_seq._order)
-            routine_timing.append(next_seq.assign_hold(l, length))
+            routine.append(next_seq)
             next_start = library.lib.get_start(next_seq._next_cat1)
             next_seq = Sequence(next_start, next_seq._next_cat1, library.lib)
             if length % 3 == 0 and pace == 'slow':
@@ -158,6 +163,10 @@ class Library:
                 l += 5
             if pace == 'fast':
                 l += 1
-        return [routine, routine_timing]
+        return routine
 
-
+    def _get_routine_timing(self, routine, length, pace):
+        timing = []
+        for i in range(0, len(routine)):
+            timing.append((routine[i]).assign_hold(length, pace))
+        return timing
