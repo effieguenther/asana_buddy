@@ -1,8 +1,4 @@
-from PIL import Image
 import random
-
-library = __import__('library')
-
 
 class Pose:
     def __init__(self, name, sanskrit, cat1, cat2, library):
@@ -71,19 +67,19 @@ class Sequence:
         
         #each sequence is 3 min long
         if length % 3 == 0 and pace == 'slow':
-            h1 = random.randint(15, 36)
-            h2 = random.randint(h1, 72)
-            h3 = random.randint(h2, 108)
-            h4 = random.randint(h3, 144)
-            return [h1, h2 - h1, h3 - h2, h4 - h3, 180 - h4]
+            h1 = random.randint(25, 45)
+            h2 = random.randint(25, 45)
+            h3 = random.randint(25, 45)
+            h4 = random.randint(25, 45)
+            return [h1, h2, h3, h4, 180 - (h1+h2+h3+h4)]
 
         #each sequence is 4 min long
         if length % 4 == 0 and pace == 'slow':
-            h1 = random.randint(20, 48)
-            h2 = random.randint(h1, 96)
-            h3 = random.randint(h2, 144)
-            h4 = random.randint(h3, 192)
-            return [h1, h2 - h1, h3 - h2, h4 - h3, 240 - h4]
+            h1 = random.randint(35, 60)
+            h2 = random.randint(35, 60)
+            h3 = random.randint(35, 60)
+            h4 = random.randint(35, 60)
+            return [h1, h2, h3, h4, 240 - (h1+h2+h3+h4)]
 
         #each sequence is 5 min long
         if length % 5 == 0 and pace == 'slow':
@@ -95,185 +91,9 @@ class Sequence:
         
         #each sequence is 1 min long
         if pace == 'fast':
-            h1 = random.randint(5, 12)
-            h2 = random.randint(h1, 24)
-            h3 = random.randint(h2, 36)
-            h4 = random.randint(h3, 48)
-            return [h1, h2 - h1, h3 - h2, h4 - h3, 60 - h4]
-        
-
-
-class Library:
-    def __init__(self, cat1, cat2, cat3, cat4, cat5):
-        self._poses = {
-            cat1: {},
-            cat2: {},
-            cat3: {},
-            cat4: {},
-            cat5: {}
-        }
-        
-    #decide which pose will be next in the standing sequence
-    def standing_get_next(self, pose, i):
-        if  i == 0 or i == 1 or i == 2:
-            while True:
-                next_cat2 = random.choice(list(self._poses['standing']))
-                next_pose = random.choice(list(self._poses['standing'][next_cat2]))
-                if next_pose != pose:
-                    return next_pose
-        if i == 3: 
-            while True:
-                next_pose = random.choice(list(self._poses['standing']['forward bend']))
-                if next_pose != pose:
-                    return next_pose
-
-
-    #decide which pose will be next in the arm & leg sequence
-   
-    def arm_leg_get_next(self, pose, i, next_cat1):
-        if  i == 0 or i == 1 or i == 2:            
-            while True:
-                next_cat2 = random.choice(list(self._poses['arm & leg']))
-                next_pose = random.choice(list(self._poses['arm & leg'][next_cat2]))
-                if next_pose != pose:
-                    return next_pose
-        
-        if i == 3 and next_cat1 == 'prone': 
-            while True:
-                next_pose = random.choice(list(self._poses['arm & leg']['forward bend']))
-                if next_pose != pose:
-                    return next_pose
-        
-        if i == 3 and next_cat1 == 'sitting': 
-           while True:
-                next_pose = random.choice(list(self._poses['arm & leg']['neutral']))
-                if next_pose != pose:
-                    return next_pose
-
-        if i == 3 and next_cat1 == 'standing': 
-            while True:
-                next_pose = random.choice(list(self._poses['arm & leg']['forward bend']))
-                if next_pose != pose:
-                    return next_pose
-
-
-    #decide which pose will be next in the seated sequence
-    
-    def seated_get_next(self, pose, i, next_cat1):
-        if  i == 0 or i == 1 or i == 2:            
-            while True:
-                next_cat2 = random.choice(list(self._poses['seated']))
-                next_pose = random.choice(list(self._poses['seated'][next_cat2]))
-                if next_pose != pose:
-                    return next_pose
-        
-        if i == 3 and next_cat1 == 'prone': 
-            while True:
-                next_pose = random.choice(list(self._poses['seated']['neutral']))
-                if next_pose != pose:
-                    return next_pose
-        
-        if i == 3 and next_cat1 == 'arm & leg': 
-           while True:
-                next_pose = random.choice(list(self._poses['seated']['forward bend']))
-                if next_pose != pose:
-                    return next_pose
-
-        if i == 3 and next_cat1 == 'supine': 
-            while True:
-                next_pose = random.choice(list(self._poses['seated']['balancing']))
-                if next_pose != pose:
-                    return next_pose 
-
-
-    #decide which pose will be next in the prone sequence
-
-    def prone_get_next(self, pose, i, next_cat1):
-        if  i == 0 or i == 1 or i == 2:            
-            while True:
-                next_cat2 = random.choice(list(self._poses['prone']))
-                next_pose = random.choice(list(self._poses['prone'][next_cat2]))
-                if next_pose != pose:
-                    return next_pose
-        
-        if i == 3 and next_cat1 == 'seated': 
-            while True:
-                next_pose = random.choice(list(self._poses['prone']['backbend']))
-                if next_pose != pose:
-                    return next_pose
-        
-        if i == 3 and next_cat1 == 'arm & leg': 
-           while True:
-                next_pose = random.choice(list(self._poses['seated']['forward bend']))
-                if next_pose != pose:
-                    return next_pose
-
-        if i == 3 and next_cat1 == 'supine': 
-            while True:
-                next_pose = random.choice(list(self._poses['seated']['neutral']))
-                if next_pose != pose:
-                    return next_pose
-
-    #decide which pose will be next in the supine sequence
-
-    def supine_get_next(self, pose, i, next_cat1):
-        if  i == 0 or i == 1 or i == 2:            
-            while True:
-                next_cat2 = random.choice(list(self._poses['supine']))
-                next_pose = random.choice(list(self._poses['supine'][next_cat2]))
-                if next_pose != pose:
-                    return next_pose
-        
-        if i == 3 and next_cat1 == 'seated': 
-            while True:
-                next_pose = random.choice(list(self._poses['supine']['balancing']))
-                if next_pose != pose:
-                    return next_pose
-
-        if i == 3 and next_cat1 == 'prone': 
-            while True:
-                next_pose = random.choice(list(self._poses['supine']['neutral']))
-                if next_pose != pose:
-                    return next_pose
-   
-    def get_start(self, next_cat1):
-        next_cat2 = random.choice(list(self._poses[next_cat1]))
-        return random.choice(list(self._poses[next_cat1]['neutral']))
-
-    #build a list of sequences
-    def _build_routine(self, start, length, pace):
-        l = 0
-        routine = []
-
-        seq1 = Sequence(start, start._cat1, library.lib)
-        routine.append(seq1)
-        next_start = library.lib.get_start(seq1._next_cat1)
-        next_seq = Sequence(next_start, seq1._next_cat1, library.lib)
-        if length % 3 == 0 and pace == 'slow':
-            l += 3
-        if length % 4 == 0 and pace == 'slow':
-            l += 4
-        if length % 5 == 0 and pace == 'slow':
-            l += 5
-        if pace == 'fast':
-            l += 1
-
-        while l < length:
-            routine.append(next_seq)
-            next_start = library.lib.get_start(next_seq._next_cat1)
-            next_seq = Sequence(next_start, next_seq._next_cat1, library.lib)
-            if length % 3 == 0 and pace == 'slow':
-                l += 3
-            if length % 4 == 0 and pace == 'slow':
-                l += 4
-            if length % 5 == 0 and pace == 'slow':
-                l += 5
-            if pace == 'fast':
-                l += 1
-        return routine
-
-    def _get_routine_timing(self, routine, length, pace):
-        timing = []
-        for i in range(0, len(routine)):
-            timing.append(routine[i].assign_hold(length, pace))
-        return timing
+            h1 = random.randint(8, 15)
+            h2 = random.randint(8, 15)
+            h3 = random.randint(8, 15)
+            h4 = random.randint(8, 15)
+            return [h1, h2, h3, h4, 60 - (h1+h2+h3+h4)]
+ 

@@ -55,12 +55,13 @@ def open_begin():
 
 def main():
 
-    library = __import__('library')
-    routine = library.lib._build_routine(library.mountain, 6, 'fast')
-    routine_timing = library.lib._get_routine_timing(routine, 6, 'fast')
+    asanas = __import__('asanas')
+    routine = asanas.lib._build_routine(asanas.mountain, 6, 'fast')
+    routine_timing = asanas.lib._get_routine_timing(routine, 6, 'fast')
 
     for i in range(0, len(routine)):
         for j in range(0, 5):
+            print(routine[i]._order[j])
             print(routine_timing[i][j])
 
 main()
