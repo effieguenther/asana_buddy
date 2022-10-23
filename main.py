@@ -1,29 +1,37 @@
 from platform import java_ver
 import time
-import io
-import os
-from PIL import Image
-import PySimpleGUI as sg
+from PIL import Image, ImageTk
+import tkinter
 
 asanas = __import__('asanas')
+global i, j
+i = 0
+j = 0
 
-def play_routine(routine, routine_timing):
-    layout = [[sg.Image(asanas.mountain._image, size=(400,400), key = '-img-')],
-        [sg.Button('Quit')],
-        [sg.Button('Begin')]
-    ]
-    window = sg.Window('Routine', layout, size=(800, 600))
-    while True:
-        event, values = window.read()
-        if event == sg.WINDOW_CLOSED or event == 'Quit':
-            break
-        if event == 'Begin':
-            for i in range(0, len(routine)):
-                for j in range(0, len(routine[i]._order)):
-                    window['-img-'].update(routine[i]._order[j]._image)
-                    time.sleep(routine_timing[i][j])
-    window.close()
+class Window():
+    def __init__(self, root, routine, routine_timing):
+        self.canvas = tkinter.Canvas(root, width=600, height=600)
+        self.canvas.pack()
+        self.img = routine[0]._order[0]._image.resize((600, 600))
+        self.tkimg = ImageTk.PhotoImage(self.img)
+        self.image_id = self.canvas.create_image(0, 0, anchor=tkinter.NW, image=self.tkimg)
 
+    def change_image(self, routine, i, j):
+        self.img = routine[i]._order[j]._image.resize((600, 600))
+        self.tkimg = ImageTk.PhotoImage(self.img)
+        self.canvas.itemconfig(self.image_id, image=self.tkimg)
+    
+    def next(self, routine):
+        global i, j
+        if i >= len(routine) - 1:
+            return
+        if i < len(routine) and j == 4:
+            i += 1
+            j = -1
+        if j < len(routine[i]._order):
+            j += 1
+            self.change_image(routine, i, j)
+        self.canvas.after(1000, self.next(routine))
 
 def input_length(question):
     while True:
@@ -77,6 +85,10 @@ def main():
     routine = asanas.lib._build_routine(asanas.mountain, length, pace)
     routine_timing = asanas.lib._get_routine_timing(routine, length, pace)
 
-    play_routine(routine, routine_timing)
+    root = tkinter.Tk()
+    window = Window(root, routine, routine_timing)     
+    window.next(routine)
+    root.mainloop()
+
 
 main()
