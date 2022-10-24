@@ -1,12 +1,8 @@
 from platform import java_ver
-import time
 from PIL import Image, ImageTk
 import tkinter
 
 asanas = __import__('asanas')
-global i, j
-i = 0
-j = 0
 
 class Window():
     def __init__(self, root, routine, routine_timing):
@@ -16,23 +12,11 @@ class Window():
         self.tkimg = ImageTk.PhotoImage(self.img)
         self.image_id = self.canvas.create_image(0, 0, anchor=tkinter.NW, image=self.tkimg)
 
-    def change_image(self, routine, i, j):
+    def change_image(self, i, j, routine):
         self.img = routine[i]._order[j]._image.resize((600, 600))
         self.tkimg = ImageTk.PhotoImage(self.img)
         self.canvas.itemconfig(self.image_id, image=self.tkimg)
-    
-    def next(self, routine):
-        global i, j
-        if i >= len(routine) - 1:
-            return
-        if i < len(routine) and j == 4:
-            i += 1
-            j = -1
-        if j < len(routine[i]._order):
-            j += 1
-            self.change_image(routine, i, j)
-        self.canvas.after(1000, self.next(routine))
-
+                
 def input_length(question):
     while True:
         try:
@@ -50,15 +34,6 @@ def input_length(question):
             return length
             break
 
-def input_pace(question):
-    while True:
-        pace = input(question)
-        if pace != 'fast' and pace != 'slow':
-            print("Please enter 'fast' or 'slow'")
-            continue
-        else:
-            return pace
-            break
 
 def main():
 
@@ -79,16 +54,21 @@ def main():
         print("Please enter 'yes' or 'no', or 'quit'")
         if y_n == 'quit':
             exit()    
-    length = input_length("Let's begin your routine! How long would you like to exercise? (in minutes): ")
-    pace = input_pace("Would you like the pace to be fast or slow?: ")
-    
-    routine = asanas.lib._build_routine(asanas.mountain, length, pace)
-    routine_timing = asanas.lib._get_routine_timing(routine, length, pace)
+    length = input_length("Let's begin your routine! How long would you like to exercise? (in minutes): ")    
+    routine = asanas.lib._build_routine(asanas.mountain, length)
+    routine_timing = asanas.lib._get_routine_timing(routine, length)
 
-    root = tkinter.Tk()
-    window = Window(root, routine, routine_timing)     
-    window.next(routine)
-    root.mainloop()
+    for i in range(0, len(routine)):
+        for j in range(0, len(routine[i]._order)):
+            print(f"{routine[i]._order[j]} - hold for {routine_timing[i][j]} seconds")
+    print("shavasana!")
+   
+    
+    #tried to get the routine to show in a tkinter window but couldn't get it to work :( might revisit this some day
+
+    #root = tkinter.Tk()
+    #window = Window(root, routine, routine_timing)     
+    #root.mainloop()
 
 
 main()

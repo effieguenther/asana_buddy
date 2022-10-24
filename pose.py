@@ -64,34 +64,7 @@ class Sequence:
     
     #create a sister list of hold lengths for each sequence
 
-    def assign_hold(self, length, pace):
-        
-        #each sequence is 3 min long
-        if length % 3 == 0 and pace == 'slow':
-            h1 = random.randint(25, 45)
-            h2 = random.randint(25, 45)
-            h3 = random.randint(25, 45)
-            h4 = random.randint(25, 45)
-            return [h1, h2, h3, h4, 180 - (h1+h2+h3+h4)]
-
-        #each sequence is 4 min long
-        if length % 4 == 0 and pace == 'slow':
-            h1 = random.randint(35, 60)
-            h2 = random.randint(35, 60)
-            h3 = random.randint(35, 60)
-            h4 = random.randint(35, 60)
-            return [h1, h2, h3, h4, 240 - (h1+h2+h3+h4)]
-
-        #each sequence is 5 min long
-        if length % 5 == 0 and pace == 'slow':
-            h1 = random.randint(20, 60)
-            h2 = random.randint(h1, 120)
-            h3 = random.randint(h2, 180)
-            h4 = random.randint(h3, 240)
-            return [h1, h2 - h1, h3 - h2, h4 - h3, 240 - h4]
-        
-        #each sequence is 1 min long
-        if pace == 'fast':
+    def assign_hold(self, length):
             h1 = random.randint(8, 15)
             h2 = random.randint(8, 15)
             h3 = random.randint(8, 15)

@@ -139,7 +139,7 @@ class Library:
         return random.choice(list(self._poses[next_cat1]['neutral']))
 
     #build a list of sequences
-    def _build_routine(self, start, length, pace):
+    def _build_routine(self, start, length):
         l = 0
         routine = []
         asanas = __import__('asanas')
@@ -148,31 +148,17 @@ class Library:
         routine.append(seq1)
         next_start = asanas.lib.get_start(seq1._next_cat1)
         next_seq = Sequence(next_start, seq1._next_cat1, asanas.lib)
-        if length % 3 == 0 and pace == 'slow':
-            l += 3
-        if length % 4 == 0 and pace == 'slow':
-            l += 4
-        if length % 5 == 0 and pace == 'slow':
-            l += 5
-        if pace == 'fast':
-            l += 1
+        l += 1
 
         while l < length:
             routine.append(next_seq)
             next_start = asanas.lib.get_start(next_seq._next_cat1)
             next_seq = Sequence(next_start, next_seq._next_cat1, asanas.lib)
-            if length % 3 == 0 and pace == 'slow':
-                l += 3
-            if length % 4 == 0 and pace == 'slow':
-                l += 4
-            if length % 5 == 0 and pace == 'slow':
-                l += 5
-            if pace == 'fast':
-                l += 1
+            l += 1
         return routine
 
-    def _get_routine_timing(self, routine, length, pace):
+    def _get_routine_timing(self, routine, length):
         timing = []
         for i in range(0, len(routine)):
-            timing.append(routine[i].assign_hold(length, pace))
+            timing.append(routine[i].assign_hold(length))
         return timing
