@@ -4,4 +4,6 @@
 
 # This application will store a library of asanas (AKA yoga poses). You can view the library to learn about each pose, and then create a randomized routine based on your preferences. 
 
+# It is just text based right now, but I'm hoping to get the images up and running eventually using tkinter!
+
 # What is the difference between yoga and asana? If you're curious, check out this cool page from the Hindu American Foundation's (HAF) Take Back Yoga Project: https://www.hinduamerican.org/projects/hindu-roots-of-yoga#
