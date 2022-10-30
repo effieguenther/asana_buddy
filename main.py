@@ -1,4 +1,3 @@
-from platform import java_ver
 from PIL import Image, ImageTk
 import tkinter
 
@@ -54,6 +53,7 @@ def main():
         print("Please enter 'yes' or 'no', or 'quit'")
         if y_n == 'quit':
             exit()    
+    
     length = input_length("Let's begin your routine! How long would you like to exercise? (in minutes): ")    
     routine = asanas.lib._build_routine(asanas.mountain, length)
     routine_timing = asanas.lib._get_routine_timing(routine, length)

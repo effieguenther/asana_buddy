@@ -1,6 +1,12 @@
 import random
 from pose import Sequence
 
+#the library class is a nested dictionary
+#the outer key is the main category (seated, standing, etc...)
+#the inner key is the sub category (neutral, balancing, etc...)
+#each inner key stores a list of poses that fit each main + sub category
+#upon innit, each pose instance will append itself to a library
+
 class Library:
     def __init__(self, cat1, cat2, cat3, cat4, cat5):
         self._poses = {
@@ -12,6 +18,7 @@ class Library:
         }
         
     #decide which pose will be next in the standing sequence
+    
     def standing_get_next(self, pose, i):
         if  i == 0 or i == 1 or i == 2:
             while True:
@@ -134,11 +141,15 @@ class Library:
                 if next_pose != pose:
                     return next_pose
    
+   #get the starting pose for the next sequence
+
     def get_start(self, next_cat1):
         next_cat2 = random.choice(list(self._poses[next_cat1]))
         return random.choice(list(self._poses[next_cat1]['neutral']))
 
-    #build a list of sequences
+   
+    #build a list of sequences as the main routine
+    
     def _build_routine(self, start, length):
         l = 0
         routine = []

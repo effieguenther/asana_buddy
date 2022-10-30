@@ -1,6 +1,9 @@
 import random
 from PIL import Image
 
+#pose class stores all the information about each pose
+#and appends itself to a library
+
 class Pose:
     def __init__(self, name, sanskrit, cat1, cat2, library):
         self._name = name
@@ -17,6 +20,11 @@ class Pose:
     def __repr__(self):
         return self._name
 
+
+#upon innit sequence class creates a randomized sequence of 5 poses
+#it is passed the first pose, and assigns the next 4
+#the category of the next sequence randomly chosen and passed into the get_next function
+#to ensure each sequence flows into the next
 
 class Sequence:
     def __init__(self, pose1, cat1, lib):
