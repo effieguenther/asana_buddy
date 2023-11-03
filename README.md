@@ -26,7 +26,7 @@ The last major factor to consider is the amount of time for which you hold each 
 
 ### How it works
 
-1. After a prompt, you type 'y' or 'n' to view the library and learn more about the poses
+1. After a prompt, you type 'yes' or 'no' to view the library and learn more about the poses (or 'quit' to quit)
 2. After a prompt, you type an integer between 3 and 120 to determine the length of the routine in minutes
 3. After a valid integer is given, the routine build is initiated
 4. a method of the class 'library' called _build_routine is called. It is passed a starting pose of 'mountain', and the user's chosen length
