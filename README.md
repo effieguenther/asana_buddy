@@ -18,11 +18,11 @@ In order to develop a randomized routine which maintains a natural body flow, ea
   - back bend
   - twist
 
-Based on these categories, the functions can better decide which pose to put next. For example, it would be quite awkward to transition from a standing/balancing pose to a prone/neutral pose (and most likely result in a face plant!).   
+Based on these categories, the functions can better decide which pose to put next. For example, it would be quite awkward to transition from a standing/balancing pose to a prone/neutral pose.   
 
 It also wouldn't be very fun to do an entire routine of back bends, or only seated poses. To combat this, the randomly generated routine is acutally a list of sequences. Each sequence contains 5 poses of the same body position category, and the last asana in the sequence will have a body action which makes sense for a transition into a new body position.  
 
-The last major factor to consider is the amount of time for which you hold each pose in the routine. Since the user inputs the length of time they want to exercise in minutes, each sequence is meant to last 60 seconds, with each pose lasting anywhere between 8 and 15 seconds. It may sound short, but if you have ever tried to hold a back bend for more than 15 seconds, you'll be grateful! However, this application is better suited for shorter, fast-paced routines. Alongside each sequence list of poses is a sister list of numbers which represent the length in seconds to hold each pose.
+The last major factor to consider is the amount of time for which you hold each pose in the routine. Since the user inputs the length of time they want to exercise in minutes, each sequence is meant to last 60 seconds, with each pose lasting anywhere between 8 and 15 seconds. With this logic, the application is better suited for shorter, fast-paced routines. Alongside each sequence list of poses is a sister list of numbers which represent the length in seconds to hold each pose.
 
 ### How it works
 
@@ -39,8 +39,9 @@ The last major factor to consider is the amount of time for which you hold each 
 7. _get_routine_timing builds an list of arrays, with each array holding 5 randomized integers which add up to 60.
 8. The final routine is printed in a user-friendly way including the amount of time to hold each pose
 
-### Routine examples (5 minutes)
+### Examples (5 minutes)
  
 ![intro](./examples/intro.png)
-
-![example_1](./examples/example_1.png) ![example_2](./examples/example_2.png) ![example_3](./examples/example_3.png)
+<img src='./examples/example_1.png' alt='example_1' width='300px'/>
+<img src='./examples/example_2.png' alt='example_2' width='300px'/>
+<img src='./examples/example_3.png' alt='example_3' width='300px'/>
