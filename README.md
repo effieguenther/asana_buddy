@@ -38,5 +38,9 @@ The last major factor to consider is the amount of time for which you hold each 
 6. After the routine is built as a list of sequences, another method of the libray class _get_routine_timing is called, which is passed the routine and the user's length
 7. _get_routine_timing builds an list of arrays, with each array holding 5 randomized integers which add up to 60.
 8. The final routine is printed in a user-friendly way including the amount of time to hold each pose
-   
+
+### Routine examples (5 minutes)
  
+![intro](./examples/intro.png)
+
+![example_1](./examples/example_1.png) ![example_2](./examples/example_2.png) ![example_3](./examples/example_3.png)
